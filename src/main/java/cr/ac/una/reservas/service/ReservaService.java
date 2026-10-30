@@ -68,16 +68,32 @@ public class ReservaService {
         }
     }
 
+   // funcion completada para validar superposicion de reservas 
     private void validarSuperposicion(
             Reserva nueva
     ) throws ReservaInvalidaException {
 
-        /*
-         * TODO:
-         * Implementar la regla que impida
-         * reservas superpuestas para el mismo
-         * laboratorio y fecha.
-         */
+       for (Reserva existente : reservas) { 
+        
+            if (existente.getEstado() == EstadoReserva.CANCELADA) {
+                continue;
+            }
+
+            // Comprobar mismo laboratorio y misma fecha
+            if (existente.getLaboratorio().equalsIgnoreCase(nueva.getLaboratorio())
+                    && existente.getFecha().equals(nueva.getFecha())) {
+
+                // Comparación de rangos de tiempo
+                if (nueva.getHoraInicio() < existente.getHoraFinal()
+                        && existente.getHoraInicio() < nueva.getHoraFinal()) {
+
+                    throw new ReservaInvalidaException(
+                            "Existe superposicion de horario con la reserva: " + existente.getCodigo()
+                    );
+                }
+            }
+        }
+
     }
 
     private void notificarRegistro(
