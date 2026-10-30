@@ -39,9 +39,11 @@ public class ValidacionBasica
         /*
          * Existe un error intencional en esta condición.
          * Utilice el depurador para identificarlo.
+         * era si la hora de inicio es mayor o igual a la hora final.
          */
+
         if (reserva.getHoraInicio()
-                < reserva.getHoraFinal()) {
+                >= reserva.getHoraFinal()) {
 
             throw new ReservaInvalidaException(
                     "La hora final debe ser posterior "
