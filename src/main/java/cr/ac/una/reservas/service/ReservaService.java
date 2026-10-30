@@ -5,6 +5,7 @@ import java.util.List;
 
 import cr.ac.una.reservas.exception.ReservaInvalidaException;
 import cr.ac.una.reservas.model.Reserva;
+import cr.ac.una.reservas.model.EstadoReserva;
 import cr.ac.una.reservas.observer.ReservaObserver;
 import cr.ac.una.reservas.strategy.ValidadorReserva;
 

@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import cr.ac.una.reservas.exception.ReservaInvalidaException;
 import cr.ac.una.reservas.model.Reserva;
 import cr.ac.una.reservas.observer.ConsolaObserver;
+import cr.ac.una.reservas.observer.ResumenObserver;
 import cr.ac.una.reservas.service.ReservaService;
 import cr.ac.una.reservas.strategy.ValidacionBasica;
 import cr.ac.una.reservas.strategy.ValidacionCapacidad;
+import cr.ac.una.reservas.strategy.ValidacionHorarioPermitido;
 
 public class App {
 
@@ -23,10 +25,14 @@ public class App {
         service.agregarValidador(
                 new ValidacionCapacidad(30)
         );
+        service.agregarValidador(
+                new ValidacionHorarioPermitido(7, 21));
 
         service.agregarObserver(
                 new ConsolaObserver()
         );
+        service.agregarObserver(
+                new ResumenObserver());
 
         Reserva reserva =
                 new Reserva(
@@ -43,7 +49,6 @@ public class App {
 
             service.registrarReserva(reserva);
 
-            System.out.println();
             System.out.println(
                     "Reservas registradas:"
             );
